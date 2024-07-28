@@ -56,5 +56,11 @@ public class WorkflowService {
     public Optional<Workflow> findWorkflow(ObjectId workId){
         return workflowRepo.findById(workId);
     }
+    public List<Workflow> getAll(){
+        return workflowRepo.findAll();
+    }
+    public void deleteWorkflowById(ObjectId id){
+        workflowRepo.deleteById(id);
+    }
 }
 

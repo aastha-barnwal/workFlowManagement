@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/")
 public class WorkflowController {
@@ -22,5 +24,13 @@ public class WorkflowController {
             System.out.println("Tasks is null");
         }
         return workflowService.saveWorkflow(workflow).getId().toHexString();
+    }
+    @GetMapping("workflow")
+    public List<Workflow> getallWorkflows(){
+        return workflowService.getAll();
+    }
+    @DeleteMapping("workflow/{workflowId}")
+    public void deleteWorkflow(@PathVariable ObjectId workflowId){
+        workflowService.deleteWorkflowById(workflowId);
     }
 }
