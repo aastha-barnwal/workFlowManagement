@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,13 @@ public class WorkflowController {
 
     // return all workflows till date
     @GetMapping("workflow")
-    public List<Workflow> getallWorkflows(){
-        return workflowService.getAll();
+    public List<String> getallWorkflows(){
+        List<Workflow> all_flows = workflowService.getAll();
+        List<String> flowId = new ArrayList<>();
+        for(Workflow flow: all_flows){
+            flowId.add(flow.getId().toHexString());
+        }
+        return flowId;
     }
 
     // delete a particular workflows by id
