@@ -14,6 +14,7 @@ import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
+// workflow execution
 @Component
 public class ExecuteWorkflow {
 
@@ -22,7 +23,7 @@ public class ExecuteWorkflow {
     @Autowired
     private WorkflowRepo workflowRepo;
 
-
+    // execute function to execute task one by one
     public void execute(ObjectId workflowId, User user) {
         Optional<Workflow> workflow = workflowRepo.findById(workflowId);
         if(workflow.isPresent()){
@@ -44,6 +45,7 @@ public class ExecuteWorkflow {
 
     }
 
+    // DOB check task
     private void performDobCheck(Task task, User user) {
         try{
             LocalDate current = LocalDate.now();
@@ -64,6 +66,7 @@ public class ExecuteWorkflow {
         }
     }
 
+//    Gender check task
     private void performGenderCheck(Task task, User user) {
         try{
 
@@ -80,6 +83,7 @@ public class ExecuteWorkflow {
         }
     }
 
+//    Pincode check task
     private void performPincodeCheck(Task task, User user) {
         try{
 
@@ -96,3 +100,5 @@ public class ExecuteWorkflow {
         }
     }
 }
+
+//Service --------> Repository

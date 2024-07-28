@@ -35,6 +35,8 @@ public class WorkflowService {
     @Autowired
     private TaskRepo taskRepo;
 
+    // Transactional because there are two operation and anyone fails, all fails
+    //save task and workflows
     @Transactional
     public Workflow saveWorkflow(Workflow workflow) {
         try {
@@ -45,7 +47,6 @@ public class WorkflowService {
             }
 
             // Save the workflow with references to the saved tasks
-            System.out.println("Saving Workflow: " + workflow);
             return workflowRepo.save(workflow);
         } catch (Exception e) {
             System.out.println(e);
@@ -53,14 +54,20 @@ public class WorkflowService {
         return new Workflow();
     }
 
+    // return workflows by id
     public Optional<Workflow> findWorkflow(ObjectId workId){
         return workflowRepo.findById(workId);
     }
+
+//    return list of all workflows
     public List<Workflow> getAll(){
         return workflowRepo.findAll();
     }
+
+    // delete workflows by id
     public void deleteWorkflowById(ObjectId id){
         workflowRepo.deleteById(id);
     }
 }
 
+//Service --------> Repository

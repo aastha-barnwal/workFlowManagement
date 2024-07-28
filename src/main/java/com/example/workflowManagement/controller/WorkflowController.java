@@ -15,22 +15,24 @@ public class WorkflowController {
     @Autowired
     private WorkflowService workflowService;
 
+    // create and save workflows
     @PostMapping("workflow")
     public String createWorkflow(@RequestBody Workflow workflow) {
-        System.out.println("Received Workflow: " + workflow);
-        if (workflow.getTasks() != null) {
-            System.out.println("Tasks count: " + workflow.getTasks().size());
-        } else {
-            System.out.println("Tasks is null");
-        }
+        //return the id of workflow
         return workflowService.saveWorkflow(workflow).getId().toHexString();
     }
+
+    // return all workflows till date
     @GetMapping("workflow")
     public List<Workflow> getallWorkflows(){
         return workflowService.getAll();
     }
+
+    // delete a particular workflows by id
     @DeleteMapping("workflow/{workflowId}")
     public void deleteWorkflow(@PathVariable ObjectId workflowId){
         workflowService.deleteWorkflowById(workflowId);
     }
 }
+
+// Controller ------->>> Service

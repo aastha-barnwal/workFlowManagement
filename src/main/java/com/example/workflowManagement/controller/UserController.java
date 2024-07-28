@@ -1,6 +1,4 @@
 package com.example.workflowManagement.controller;
-
-
 import com.example.workflowManagement.entity.User;
 import com.example.workflowManagement.entity.Workflow;
 import com.example.workflowManagement.service.ExecuteWorkflow;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -21,10 +20,12 @@ public class UserController {
     @Autowired
     private WorkflowService workflowService;
 
+    //  create and save user
     @PostMapping("/{workflowId}/user")
     public String saveUser(@RequestBody User user, @PathVariable ObjectId workflowId){
         return userService.addUser(user).getId().toHexString();
     }
+    // return the executed workflows
     @GetMapping("/{workflowId}/user/{userId}")
     public ResponseEntity<?> getWorkflow(@PathVariable ObjectId workflowId, @PathVariable ObjectId userId){
         User user = userService.findUser(userId);
@@ -33,3 +34,6 @@ public class UserController {
     }
 
 }
+
+
+// controller ------> Service --------> Repository

@@ -13,10 +13,13 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
+//     Add user or create user
     public User addUser(User user){
         return userRepo.save(user);
 
     }
+
+    // get user by userId
     public User findUser(ObjectId userId){
         if(userRepo.findById(userId).isPresent())
             return userRepo.findById(userId).get();
@@ -25,3 +28,6 @@ public class UserService {
     }
 
 }
+
+
+//Service --------> Repository
