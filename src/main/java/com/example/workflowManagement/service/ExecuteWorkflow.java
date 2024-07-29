@@ -70,10 +70,12 @@ public class ExecuteWorkflow {
     private void performGenderCheck(Task task, User user) {
         try{
 
-            if (user.getGender().equalsIgnoreCase("M") && user.getGender().equalsIgnoreCase(task.getCondition())) {
+            if ((user.getGender().equalsIgnoreCase("M") && user.getGender().equalsIgnoreCase(task.getCondition())) ||
+                    (user.getGender().equalsIgnoreCase("F") && user.getGender().equalsIgnoreCase(task.getCondition()))
+            ) {
                 task.setAction("Pincode check");
                 task.setStatus("success");
-            } else if(user.getGender().equalsIgnoreCase("F")) {
+            } else{
                 task.setAction("Loan status approved");
                 task.setStatus("failure");
             }
@@ -88,11 +90,12 @@ public class ExecuteWorkflow {
         try{
 
             if (user.getPincode().startsWith(task.getCondition())) {
-                task.setAction("loan_approved");
-                task.setStatus("success");
-            } else {
                 task.setAction("loan_approval_required");
                 task.setStatus("failure");
+            } else {
+
+                task.setAction("loan_approved");
+                task.setStatus("success");
             }
             taskRepo.save(task);
         }catch(Exception e){

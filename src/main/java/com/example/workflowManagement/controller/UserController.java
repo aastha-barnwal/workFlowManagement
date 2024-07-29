@@ -30,9 +30,8 @@ public class UserController {
     public ResponseEntity<?> getWorkflow(@PathVariable ObjectId workflowId, @PathVariable ObjectId userId){
         User user = userService.findUser(userId);
         executeWorkflow.execute(workflowId,user);
-        return new ResponseEntity<>(workflowService.findWorkflow(workflowId), HttpStatus.FOUND);
+        return new ResponseEntity<>(workflowService.findWorkflow(workflowId), HttpStatus.OK);
     }
-
 }
 
 
