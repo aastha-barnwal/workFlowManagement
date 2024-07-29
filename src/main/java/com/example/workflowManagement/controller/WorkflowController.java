@@ -22,14 +22,16 @@ public class WorkflowController {
         //return the id of workflow
         return workflowService.saveWorkflow(workflow).getId().toHexString();
     }
-
     // return all workflows till date
     @GetMapping("workflow")
-    public List<String> getallWorkflows(){
+    public List<Object> getallWorkflows(){
         List<Workflow> all_flows = workflowService.getAll();
-        List<String> flowId = new ArrayList<>();
+        List<Object> flowId = new ArrayList<>();
         for(Workflow flow: all_flows){
-            flowId.add(flow.getId().toHexString());
+            Object obj = new Object();
+            obj.id=flow.getId().toHexString();
+            obj.name = flow.getName();
+            flowId.add(obj);
         }
         return flowId;
     }
@@ -40,5 +42,10 @@ public class WorkflowController {
         workflowService.deleteWorkflowById(workflowId);
     }
 }
+class Object{
+    public String id;
+    public String name;
+}
+
 
 // Controller ------->>> Service
